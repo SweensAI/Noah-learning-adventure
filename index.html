@@ -82,6 +82,66 @@
   }
   .clear-btn:active { color: #7a7686; }
 
+  /* This Week tile */
+  .week-tile {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    border: none; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px;
+    background: linear-gradient(90deg, #0c8599, #0b7285);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+    cursor: pointer; text-align: left;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .week-tile:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
+  .week-tile-emoji { font-size: 26px; flex: 0 0 auto; }
+  .week-tile-text { flex: 1 1 auto; display: flex; flex-direction: column; }
+  .week-tile-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .week-tile-sub { font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.9); margin-top: 2px; }
+  .week-tile-go { font-size: 22px; color: #fff; flex: 0 0 auto; }
+
+  /* Weekly updates screen */
+  #screen-weekly { display: none; }
+  .week-list { display: flex; flex-direction: column; gap: 12px; }
+  .week-item {
+    display: flex; align-items: center; gap: 12px;
+    background: #ffffff; border: 3px solid #0c8599; border-radius: 20px;
+    padding: 14px 16px; cursor: pointer;
+    box-shadow: 0 4px 0 #0c8599;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .week-item:active { transform: translateY(3px); box-shadow: 0 1px 0 #0c8599; }
+  .week-item .icon {
+    width: 48px; height: 48px; border-radius: 14px; background: #0c8599;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; flex: 0 0 auto;
+  }
+  .week-item .text { flex: 1 1 auto; }
+  .week-item .wname { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16.5px; color: #0b7285; display: block; }
+  .week-item .wdesc { font-size: 12.5px; font-weight: 600; color: #6b6975; display: block; }
+  .week-item .go { font-size: 20px; color: #0c8599; }
+
+  /* Modal pop-up */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(20,20,30,0.55);
+    z-index: 50; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-card {
+    background: #fffaf0; border-radius: 22px; max-width: 480px; width: 100%;
+    max-height: 85vh; overflow-y: auto; padding: 22px 20px 24px; position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .modal-close {
+    position: absolute; top: 12px; right: 12px; width: 34px; height: 34px;
+    border-radius: 50%; border: none; background: #f0f0f0; font-size: 16px; cursor: pointer;
+  }
+  .modal-card h2 { font-family: 'Baloo 2', sans-serif; color: #0b7285; margin: 0 0 2px; font-size: 21px; }
+  .modal-card .mdate { font-size: 13px; font-weight: 700; color: #8a8894; margin-bottom: 14px; }
+  .modal-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 14.5px; color: #1c7ed6; margin: 16px 0 6px; border-bottom: 2px solid #dfe4ea; padding-bottom: 3px; }
+  .modal-card .mrow { margin-bottom: 8px; font-size: 14px; line-height: 1.45; }
+  .modal-card .mrow strong { color: #232323; }
+  .modal-card .mnote { background: #fff4e0; border-left: 4px solid #e8590c; padding: 8px 12px; border-radius: 4px; font-size: 12.5px; font-weight: 600; color: #7a5b00; margin-top: 12px; }
+  .modal-card .mclosing { font-size: 13px; font-style: italic; color: #6b6975; margin-top: 14px; }
+
+
   /* SUBJECT SCREEN */
   #screen-subject { display: none; }
   .back-btn {
@@ -177,6 +237,14 @@
   <!-- HOME SCREEN -->
   <div id="screen-home">
     <div class="home-grid" id="homeGrid"></div>
+    <button class="week-tile" id="weekTile">
+      <span class="week-tile-emoji">🗓️</span>
+      <span class="week-tile-text">
+        <span class="week-tile-title">This Week at School</span>
+        <span class="week-tile-sub" id="weekTileSub">See what Noah's been learning + homework</span>
+      </span>
+      <span class="week-tile-go">›</span>
+    </button>
     <button class="surprise-btn" id="surpriseBtn">🎲 Surprise me!</button>
     <button class="clear-btn" id="clearBtn">↺ Clear my stars</button>
   </div>
@@ -190,6 +258,24 @@
     </div>
     <div class="site-grid" id="siteGrid"></div>
     <div class="note-card" id="panelNote" style="display:none; margin-top:12px;"></div>
+  </div>
+
+  <!-- WEEKLY UPDATES SCREEN -->
+  <div id="screen-weekly">
+    <button class="back-btn" id="backBtnWeekly">‹ All subjects</button>
+    <div class="panel-head" style="--panel-color:#0c8599; background:#0c8599;">
+      <span class="emoji">🗓️</span>
+      <div><h2>This Week at School</h2><p>Tap a week to read the full update</p></div>
+    </div>
+    <div class="week-list" id="weekList"></div>
+  </div>
+
+  <!-- POP-UP MODAL FOR A SINGLE WEEK -->
+  <div id="weekModalOverlay" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalContent"></div>
+    </div>
   </div>
 
   <footer>Ask a grown-up before you go online 🌟</footer>
@@ -235,6 +321,45 @@
         { name: 'BBC Bitesize KS1', url: 'https://www.bbc.co.uk/bitesize/levels/z3g4d2p', desc: 'Covers lots of other subjects too', icon: '📺' }
       ],
       note: '🧑‍🤝‍🧑 Ask a grown-up if you\'d like to find more websites for these subjects!'
+    }
+  ];
+
+  // ---- Weekly updates from school (ParentMail homework/summary emails) ----
+  // To add a new week: copy one entry below, change date/id, and fill in the sections.
+  const WEEKLY_UPDATES = [
+    {
+      id: '2026-09-11',
+      date: '11 September 2026',
+      greeting: 'Welcome to the weekend!',
+      summary: [
+        { subject: 'English', text: 'We have looked at writing in full sentences to talk about times when we have been brave.' },
+        { subject: 'Maths', text: 'We have counted objects up to 50, to find the total, as well as exploring one more and one less than a given number.' },
+        { subject: 'Science', text: 'We talked about the changes we will see as Autumn begins. What changes can you spot in your local area?' }
+      ],
+      homework: [
+        { subject: 'English', text: 'A SPaG (Spelling, Punctuation and Grammar) worksheet to complete.' },
+        { subject: 'Maths', text: 'Questions to answer. Please focus on number formation.' }
+      ],
+      note: 'As much as possible the children should try and complete the work independently. You can read the question to them if needed but they should find the answer by themselves where possible.',
+      closing: 'Have a restful weekend, The Year 1 team.'
+    },
+    {
+      id: '2026-09-18',
+      date: '18 September 2026',
+      greeting: 'This Week',
+      summary: [
+        { subject: 'English', text: 'We ordered and retold the story of The Tiger Who Came to Tea. We also wrote a piece as the mummy, who had to clear up all the mess when the tiger left.' },
+        { subject: 'Maths', text: 'We sequenced numbers, reviewed our number bonds to 10 and shown different ways to represent a given number.' },
+        { subject: 'Geography', text: 'We looked at the 4 countries of the UK and their capital cities. Can the children remember which capital city matches which country? Have they visited any of the capital cities we have talked about?' }
+      ],
+      homework: [
+        { subject: 'High Frequency Words', text: 'A list of high-frequency words to read and write independently by the end of the year — no set test or time frame, but practise a few each week.' },
+        { subject: 'English', text: 'A SPaG (Spelling, Punctuation and Grammar) worksheet to complete.' },
+        { subject: 'Maths', text: 'Questions to answer. Please focus on number formation.' },
+        { subject: 'Number Ordering', text: 'A game for home — choose 4 numbers from the grid attached and put them in order from smallest to largest. Move on to more numbers when ready.' }
+      ],
+      note: 'As much as possible the children should try and complete the work independently. You can read the question to them if needed but they should find the answer by themselves where possible. To be handed in on Wednesday 23rd September.',
+      closing: 'Have a restful weekend, Kind regards, The Year 1 team.'
     }
   ];
 
@@ -353,11 +478,92 @@
 
   function showHome() {
     document.getElementById('screen-subject').style.display = 'none';
+    document.getElementById('screen-weekly').style.display = 'none';
     document.getElementById('screen-home').style.display = 'block';
     renderHome();
   }
 
   document.getElementById('backBtn').addEventListener('click', showHome);
+  document.getElementById('backBtnWeekly').addEventListener('click', showHome);
+
+  // ---- This Week at School ----
+  function renderWeekTileSub() {
+    const sub = document.getElementById('weekTileSub');
+    if (WEEKLY_UPDATES.length === 0) {
+      sub.textContent = 'No updates yet';
+    } else {
+      sub.textContent = `Latest: ${WEEKLY_UPDATES[WEEKLY_UPDATES.length - 1].date}`;
+    }
+  }
+
+  function showWeekly() {
+    document.getElementById('screen-home').style.display = 'none';
+    document.getElementById('screen-subject').style.display = 'none';
+    document.getElementById('screen-weekly').style.display = 'block';
+    renderWeekList();
+  }
+
+  function renderWeekList() {
+    const list = document.getElementById('weekList');
+    list.innerHTML = '';
+    // Newest first
+    const ordered = [...WEEKLY_UPDATES].reverse();
+    if (ordered.length === 0) {
+      list.innerHTML = '<div class="note-card">No weekly updates added yet. Ask a grown-up to add this week\'s homework!</div>';
+      return;
+    }
+    ordered.forEach(week => {
+      const item = document.createElement('div');
+      item.className = 'week-item';
+      item.innerHTML = `
+        <span class="icon">🗓️</span>
+        <span class="text">
+          <span class="wname">${week.date}</span>
+          <span class="wdesc">${week.greeting || 'Tap to read this week\'s update'}</span>
+        </span>
+        <span class="go">›</span>
+      `;
+      item.addEventListener('click', () => openWeekModal(week.id));
+      list.appendChild(item);
+    });
+  }
+
+  function openWeekModal(id) {
+    const week = WEEKLY_UPDATES.find(w => w.id === id);
+    if (!week) return;
+    const content = document.getElementById('modalContent');
+    let html = `<h2>${week.greeting || 'This Week'}</h2><div class="mdate">${week.date}</div>`;
+    if (week.summary && week.summary.length) {
+      html += `<h3>Our week in Year 1</h3>`;
+      week.summary.forEach(row => {
+        html += `<div class="mrow"><strong>${row.subject}:</strong> ${row.text}</div>`;
+      });
+    }
+    if (week.homework && week.homework.length) {
+      html += `<h3>Homework</h3>`;
+      week.homework.forEach(row => {
+        html += `<div class="mrow"><strong>${row.subject}:</strong> ${row.text}</div>`;
+      });
+    }
+    if (week.note) {
+      html += `<div class="mnote">${week.note}</div>`;
+    }
+    if (week.closing) {
+      html += `<div class="mclosing">${week.closing}</div>`;
+    }
+    content.innerHTML = html;
+    document.getElementById('weekModalOverlay').classList.add('active');
+  }
+
+  function closeWeekModal() {
+    document.getElementById('weekModalOverlay').classList.remove('active');
+  }
+
+  document.getElementById('weekTile').addEventListener('click', showWeekly);
+  document.getElementById('modalClose').addEventListener('click', closeWeekModal);
+  document.getElementById('weekModalOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'weekModalOverlay') closeWeekModal();
+  });
 
   document.getElementById('surpriseBtn').addEventListener('click', () => {
     const sites = allSites();
@@ -382,6 +588,7 @@
   setGreeting();
   renderStarCount();
   renderHome();
+  renderWeekTileSub();
 </script>
 
 </body>
