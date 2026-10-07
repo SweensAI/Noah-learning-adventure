@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noah's Reading List — Year 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #2b2a33; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: radial-gradient(circle at 15% 0%, #fff6da 0%, #fdf0e6 35%, #eaf6ff 100%);
+    font-family: 'Quicksand', sans-serif; color: var(--ink);
+    padding: 18px 14px 40px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; position: relative; }
+  .sky-shape { position: absolute; border-radius: 50%; opacity: 0.45; z-index: 0; pointer-events: none; }
+
+  header { position: relative; z-index: 1; text-align: center; padding: 6px 0 14px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 14px;
+    color: #9d174d; text-decoration: none; margin-bottom: 10px;
+  }
+  header h1 {
+    font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: clamp(24px, 6vw, 32px);
+    margin: 0; background: linear-gradient(90deg, #9d174d, #e8590c);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  header p { font-weight: 700; font-size: 14px; color: #8a8894; margin: 4px 0 0; }
+
+  .progress-wrap { position: relative; z-index: 1; margin: 16px 0 20px; }
+  .progress-label {
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 14.5px; color: #9d174d;
+    display: flex; justify-content: space-between; margin-bottom: 6px;
+  }
+  .progress-track {
+    background: #ffffff; border: 3px solid #f6c3d9; border-radius: 999px; height: 20px;
+    overflow: hidden; box-shadow: inset 0 2px 3px rgba(0,0,0,0.06);
+  }
+  .progress-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, #e8590c, #f08c00, #9d174d);
+    width: 0%; transition: width 0.3s ease;
+  }
+
+  .category {
+    position: relative; z-index: 1;
+    background: #ffffff; border-radius: 20px; padding: 14px 16px 6px;
+    margin-bottom: 16px; box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+    border: 3px solid var(--cat-color, #f6c3d9);
+  }
+  .category h2 {
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16.5px;
+    margin: 0 0 8px; color: var(--cat-color, #9d174d);
+  }
+  .book-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 9px 2px; border-top: 2px dashed #f1eef5;
+  }
+  .category .book-row:first-of-type { border-top: none; }
+  .book-check {
+    appearance: none; -webkit-appearance: none; flex: 0 0 auto;
+    width: 26px; height: 26px; border-radius: 9px; margin-top: 1px;
+    border: 3px solid var(--cat-color, #e8590c); background: #fff; cursor: pointer;
+    display: grid; place-content: center;
+  }
+  .book-check::after {
+    content: ''; width: 13px; height: 13px; border-radius: 4px;
+    background: var(--cat-color, #e8590c); transform: scale(0); transition: transform 0.12s ease;
+  }
+  .book-check:checked::after { transform: scale(1); }
+  .book-text { flex: 1 1 auto; }
+  .book-title {
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px;
+    line-height: 1.25; color: var(--ink); display: block;
+  }
+  .book-author { font-size: 12.5px; font-weight: 600; color: #8a8894; display: block; margin-top: 1px; }
+  .book-row.done .book-title { color: #b7b4c0; text-decoration: line-through; }
+  .book-row.done .book-author { color: #cfccd6; }
+
+  .clear-btn {
+    display: block; margin: 20px auto 0; background: none; border: none;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px;
+    color: #a39fae; text-decoration: underline; cursor: pointer; padding: 6px;
+    position: relative; z-index: 1;
+  }
+  .clear-btn:active { color: #7a6a76; }
+  footer { text-align: center; margin-top: 22px; font-size: 12.5px; font-weight: 600; color: #8a8894; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<div class="sky-shape" style="width:200px;height:200px;background:#ffe3a3;top:-50px;left:-60px;"></div>
+<div class="sky-shape" style="width:150px;height:150px;background:#bfe3ff;top:100px;right:-50px;"></div>
+<div class="sky-shape" style="width:130px;height:130px;background:#ffd0e0;bottom:40px;left:-40px;"></div>
+
+<div class="wrap">
+  <header>
+    <a class="back-link" href="index.html">&larr; Back to Noah's Learning Adventure</a>
+    <h1>📚 Noah's Reading List</h1>
+    <p>Year 1 (ages 5&ndash;6) &middot; 50 Recommended Reads</p>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-label"><span id="progressText">0 of 50 read</span><span id="progressPct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="categories"></div>
+
+  <button class="clear-btn" id="clearBtn">Clear all ticks</button>
+  <footer>Booklist from booksfortopics.com &middot; tap a book to tick it off once it's read</footer>
+</div>
+
+<script>
+const CATEGORIES = [
+  { name: 'Storytime Favourites', color: '#e8590c', books: [
+    { t: 'Look Up!', a: 'Nathan Bryon & Dapo Adeola' },
+    { t: 'The Bumblebear', a: 'Nadia Shireen' },
+    { t: 'Where to Hide a Star', a: 'Oliver Jeffers' },
+    { t: 'That Rabbit Belongs to Emily Brown', a: 'Cressida Cowell & Neal Layton' },
+    { t: 'You Must Bring a Hat', a: 'Simon Philip & Kate Hindley' },
+  ]},
+  { name: 'Classic Books', color: '#1c7ed6', books: [
+    { t: "The Lighthouse Keeper's Lunch", a: 'Ronda & David Armitage' },
+    { t: 'The Owl Who Was Afraid of the Dark', a: 'Jill Tomlinson & Paul Howard' },
+    { t: 'Funnybones', a: 'Janet & Allan Ahlberg' },
+    { t: 'Gorilla', a: 'Anthony Browne' },
+    { t: 'The Snail and the Whale', a: 'Julia Donaldson & Axel Scheffler' },
+    { t: 'Winnie the Pooh', a: 'A. A. Milne & E. H. Shepard' },
+  ]},
+  { name: 'Stories of Imagination and Wonder', color: '#9c36b5', books: [
+    { t: 'Tiny Jenny: Little Fairy, Big Trouble', a: 'Briony May Smith' },
+    { t: 'The Wonder', a: 'Tom Percival' },
+    { t: 'The Wall in the Middle of the Book', a: 'Jon Agee' },
+  ]},
+  { name: 'Community & Culture Stories', color: '#2f9e44', books: [
+    { t: 'The Can Caravan', a: "Richard O'Neill & Cindy Kang" },
+    { t: "Mama's Special Wonton Soup", a: 'Wai Mei Wong & Xin Yue Zhu' },
+    { t: "Noura's Crescent Moon", a: 'Zainab Khan & Nabila Adani' },
+    { t: 'The Kindest Red', a: 'Ibtihaj Muhammad, S. K. Ali & Hatem Aly' },
+  ]},
+  { name: 'Empathy-Boosting Books', color: '#ae3ec9', books: [
+    { t: 'Gina Kaminski Rescues the Giant', a: 'Craig Barr-Green & Francis Martin' },
+    { t: 'My Name is a Gift', a: 'Zeshan Akhter & Åsa Gilland' },
+    { t: 'The Smile', a: 'Marie Voigt' },
+    { t: 'Bear Heart', a: 'Louise Greig & Hoang Giang' },
+  ]},
+  { name: 'Storytime Chapter Books', color: '#0c8599', books: [
+    { t: 'Harry the Poisonous Centipede', a: 'Lynne Reid Banks & Tony Ross' },
+    { t: 'Huxley and Flapjack: Race to the Rescue', a: 'Alan MacDonald & Francesca Gambatesa' },
+    { t: 'Fantastic Mr Fox', a: 'Roald Dahl & Quentin Blake' },
+    { t: 'Adventuremice: Of Mice and Mummies', a: 'Philip Reeve & Sarah McIntyre' },
+    { t: 'Hotel Flamingo: Frosty Fiesta', a: 'Alex Milway' },
+  ]},
+  { name: 'Independent Chapter Books', color: '#e8590c', books: [
+    { t: 'Isadora Moon Has a Birthday', a: 'Harriet Muncaster' },
+    { t: 'Marty Moose: The Great Stamp-ede', a: 'Claire Powell' },
+    { t: 'The Runaway Tortoise', a: 'Holly Webb & Ocean Hughes' },
+    { t: 'Wands Away: Spell Class', a: 'Emma Farrarons' },
+    { t: "Rabbit and Bear: Rabbit's Bad Habits", a: 'Julian Gough & Jim Field' },
+  ]},
+  { name: 'First Graphic Novels', color: '#1c7ed6', books: [
+    { t: 'Bumble & Snug and the Worried Dragons', a: 'Mark Bradley' },
+  ]},
+  { name: 'Animal Stories', color: '#2f9e44', books: [
+    { t: 'Come Back, Gosling', a: 'Anne Booth & David Litchfield' },
+    { t: 'Duck Delivers', a: 'Tom Tinn-Disbury' },
+    { t: 'Capybara Disco Dreams', a: 'Frances Stickley & Nikki Dyson' },
+    { t: "Don't Think of Tigers", a: 'Alex Latimer' },
+    { t: 'The Puffin Keeper', a: 'Michael Morpurgo & Benji Davies' },
+  ]},
+  { name: 'Funny Books', color: '#f08c00', books: [
+    { t: 'I Can Only Draw Worms', a: 'Will Mabbitt' },
+    { t: 'Splash Day!', a: 'Nick Sharratt' },
+    { t: 'Sleep Tight, Disgusting Blob', a: 'Huw Aaron' },
+    { t: 'We Are Definitely Human', a: 'X Fang' },
+    { t: 'The Cafe at the Edge of the Woods', a: 'Mikey Please' },
+  ]},
+  { name: 'Poetry', color: '#9d174d', books: [
+    { t: 'A Whale of a Time', a: 'Lou Peacock & Matt Hunt' },
+    { t: 'Hot Food: Nice!', a: 'Michael Rosen & Neal Layton' },
+  ]},
+  { name: 'Non-Fiction Books', color: '#0c8599', books: [
+    { t: 'Coming to England', a: 'Baroness Floella Benjamin & Diane Ewen' },
+    { t: 'Habitats', a: 'Hannah Pang & Isobel Lundie' },
+    { t: 'Small, Shiny Dung Beetle', a: 'Mary Auld & Hannah Bailey' },
+    { t: 'We Are All Inventors!', a: 'Kate Pankhurst' },
+    { t: 'Wild Footprints', a: 'Judy Wise, Kristen & Kevin Howdeshell' },
+  ]},
+];
+
+const STORAGE_KEY = 'noahYear1ReadsChecked';
+
+function loadChecked() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch (e) { return {}; }
+}
+function saveChecked(obj) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch (e) {}
+}
+
+let checked = loadChecked();
+
+function bookKey(catIdx, bookIdx) { return catIdx + '-' + bookIdx; }
+
+function render() {
+  const container = document.getElementById('categories');
+  container.innerHTML = '';
+  CATEGORIES.forEach((cat, ci) => {
+    const catEl = document.createElement('section');
+    catEl.className = 'category';
+    catEl.style.setProperty('--cat-color', cat.color);
+    const h2 = document.createElement('h2');
+    h2.textContent = cat.name;
+    catEl.appendChild(h2);
+
+    cat.books.forEach((book, bi) => {
+      const key = bookKey(ci, bi);
+      const isDone = !!checked[key];
+      const row = document.createElement('label');
+      row.className = 'book-row' + (isDone ? ' done' : '');
+
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.className = 'book-check';
+      box.checked = isDone;
+      box.addEventListener('change', () => {
+        if (box.checked) checked[key] = true; else delete checked[key];
+        saveChecked(checked);
+        row.classList.toggle('done', box.checked);
+        updateProgress();
+      });
+
+      const text = document.createElement('span');
+      text.className = 'book-text';
+      text.innerHTML = `<span class="book-title">${book.t}</span><span class="book-author">${book.a}</span>`;
+
+      row.appendChild(box);
+      row.appendChild(text);
+      catEl.appendChild(row);
+    });
+
+    container.appendChild(catEl);
+  });
+}
+
+function totalBooks() {
+  return CATEGORIES.reduce((sum, c) => sum + c.books.length, 0);
+}
+
+function updateProgress() {
+  const total = totalBooks();
+  const done = Object.keys(checked).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progressText').textContent = `${done} of ${total} read`;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (confirm("Clear all of Noah's reading ticks?")) {
+    checked = {};
+    saveChecked(checked);
+    render();
+    updateProgress();
+  }
+});
+
+render();
+updateProgress();
+</script>
+</body>
+</html>
